@@ -1,0 +1,49 @@
+C51 COMPILER V9.54   LED_LIGHT_LZH                                                         10/04/2024 10:01:52 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE LED_LIGHT_LZH
+OBJECT MODULE PLACED IN .\Objects\LED_LIGHT_LZH.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE LED_LIGHT_LZH.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\List
+                    -ings\LED_LIGHT_LZH.lst) TABS(2) OBJECT(.\Objects\LED_LIGHT_LZH.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include <delay.h>
+   3          extern unsigned int bpm;
+   4          extern unsigned int tempo;
+   5          void led_light(unsigned int (x))
+   6          {
+   7   1          P1=0xFF<<x;
+   8   1          P3=0xFF<<0;
+   9   1          if (x >= 8)
+  10   1          {
+  11   2            P3=0xFF<<(x-8);
+  12   2            P1=0xFF<<x;
+  13   2          }
+  14   1          delay((bpm*tempo)*(0.05));
+  15   1          P1=0xFF;
+  16   1          P3=0xFF;
+  17   1          delay((bpm*tempo)*(0.05));
+  18   1          P1=0xFF<<x;
+  19   1          P3=0xFF<<0;
+  20   1          if (x >= 8)
+  21   1          {
+  22   2            P3=0xFF<<(x-8);
+  23   2            P1=0xFF<<x;
+  24   2          }
+  25   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    181    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

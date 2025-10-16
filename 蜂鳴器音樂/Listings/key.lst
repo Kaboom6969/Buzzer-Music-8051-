@@ -1,0 +1,123 @@
+C51 COMPILER V9.54   KEY                                                                   10/04/2024 10:01:52 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE KEY
+OBJECT MODULE PLACED IN .\Objects\key.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE key.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\key.l
+                    -st) TABS(2) OBJECT(.\Objects\key.obj)
+
+line level    source
+
+   1          #include <REGX51.H>
+   2          #include <delay.h>
+   3          #include <LED_LIGHT_LZH.h>
+   4          extern unsigned char FreqSelect;
+   5          unsigned int bpm;
+   6          unsigned int tempo;
+   7          unsigned int lowest;
+   8          int pitch;
+   9          int variable_bpm;
+  10          sbit buzzer=P1^3;
+  11          void key(unsigned int(x),unsigned int(y)) 
+  12          {
+  13   1          TR0=1;
+  14   1          tempo=y;
+  15   1        if (P2_7 ==0) //if P2_7 ==0, P2_1 and P2_0 will change the pitch
+  16   1        {
+  17   2          if (P2_1 == 0)
+  18   2          { 
+  19   3            TR0=0;
+  20   3            while(P2_1 == 0);
+  21   3            if (P2_1 == 1)
+  22   3            {
+  23   4              delay(25);
+  24   4              pitch++;
+  25   4              TR0=1;
+  26   4              goto loop;
+  27   4            }
+  28   3          } 
+  29   2          if (P2_0 == 0)
+  30   2          { 
+  31   3            TR0=0;
+  32   3            while(P2_0 == 0);
+  33   3            if (P2_0 == 1)
+  34   3            {
+  35   4              delay(25);
+  36   4              pitch--;
+  37   4              TR0=1;
+  38   4              goto loop;
+  39   4            }
+  40   3          }
+  41   2        }
+  42   1        
+  43   1          if (P2_6 == 0) //if P2_6 ==0, P2_1 and P2_0 will change the bpm
+  44   1          {
+  45   2                if (P2_1 == 0)
+  46   2          { 
+  47   3            TR0=0;
+  48   3            while(P2_1 == 0);
+  49   3            if (P2_1 == 1)
+  50   3            {
+  51   4              delay(25);
+  52   4              variable_bpm--;
+  53   4              bpm=bpm-variable_bpm;
+  54   4              TR0=1;
+C51 COMPILER V9.54   KEY                                                                   10/04/2024 10:01:52 PAGE 2   
+
+  55   4              goto loop;
+  56   4            }
+  57   3          } 
+  58   2          if (P2_0 == 0)
+  59   2          { 
+  60   3            TR0=0;
+  61   3            while(P2_0 == 0);
+  62   3            if (P2_0 == 1)
+  63   3            {
+  64   4              delay(25);
+  65   4              variable_bpm++;
+  66   4              bpm=bpm+variable_bpm;
+  67   4              TR0=1;
+  68   4              goto loop;
+  69   4            }
+  70   3          }
+  71   2          }
+  72   1          loop:
+  73   1          FreqSelect= (x+12+pitch);
+  74   1          led_light(((x+12+pitch)-(lowest)));
+  75   1          delay((bpm*tempo)*(0.95));
+  76   1          TR0=0;
+  77   1          delay((bpm*tempo)*(0.05));
+  78   1          TR0=1;
+  79   1      }
+  80          
+  81          void stop(unsigned int(z))
+  82          {
+  83   1        TR0=0;
+  84   1        led_light(0);
+  85   1        tempo=z;
+  86   1        delay(bpm*tempo);
+  87   1      }
+  88          
+  89          void bpm_set(unsigned int(bpm_num))//This one is wrong word,the real meaning is 1/8 beat's time
+  90          {
+  91   1        bpm=bpm_num;
+  92   1      }
+  93          
+  94          void lowest_set(unsigned int(low))
+  95          {
+  96   1        lowest=low+12+pitch;
+  97   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    322    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     10       4
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

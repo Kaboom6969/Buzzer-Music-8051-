@@ -1,0 +1,51 @@
+C51 COMPILER V9.54   TIMER_1                                                               09/26/2024 01:41:12 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE TIMER_1
+OBJECT MODULE PLACED IN .\Objects\Timer_1.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE Timer_1.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\T
+                    -imer_1.lst) TABS(2) OBJECT(.\Objects\Timer_1.obj)
+
+line level    source
+
+   1          #include <REGX51.H>
+   2          #include <INTRINS.h>
+   3          void Timer1_Init()    //@11.0592MHz
+   4          {     
+   5   1        TMOD &= 0xF0;     
+   6   1        TMOD |= 0x01;     
+   7   1        TL1 = 0x66;       
+   8   1        TH1 = 0xFC;       
+   9   1        TF1 = 0;        
+  10   1        TR1 = 1;  
+  11   1        ET1 = 1;
+  12   1        EA  = 1;
+  13   1        PT1 = 0;
+  14   1      }
+  15          /*
+  16          void Timer0_Routine() interrupt 1
+  17          {
+  18            static unsigned int T0Count;
+  19            TL0 = 0xCD;
+  20            TH0 = 0xD4;
+  21            T0Count++;
+  22            if (T0Count>=1000)
+  23              {
+  24                T0Count=0;
+  25              }
+  26          }
+  27          */
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     23    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

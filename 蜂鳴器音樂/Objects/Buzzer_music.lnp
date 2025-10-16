@@ -1,0 +1,8 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj",
+".\Objects\Timer.obj",
+".\Objects\delay.obj",
+".\Objects\key.obj",
+".\Objects\LED_LIGHT_LZH.obj" 
+TO ".\Objects\Buzzer_music" 
+PRINT(".\Listings\Buzzer_music.m51")
